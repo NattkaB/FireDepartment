@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery</title>
+    <meta charset="utf-8" />
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon"
+          type="image/png"
+          href="flame.png"/>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+        (function () {  //Functions don't need names. This function will simply run when the page loads
+            var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+            $.getJSON(flickerAPI, {  // The "$" simply refers to jQuery. This calls the getJSON function that is found inside jquery-3.1.1.min.js
+                tags: "Tarrytown Fire Department", //Some filter information in the format set by Flickr, who owns the JSON
+                tagmode: "any",
+                format: "json"
+            })
+                .done(function (data) { //Here, a an unnamed function is created made into the event handler for the "done" event... in other words, this is the code that will manifest itself when the getJSON is done.
+                    $.each(data.items, function (i, item) {
+                        $("<img>").attr("src", item.media.m).appendTo("#images");
+                        if (i === 15) {
+                            return false;
+                        }
+                    });
+                });
+        })();
+    </script>
+
+
+</head>
+<body>
+    <div id="wrapper">
+        <header><h1 id="tagline">CONQUEROR HOOK AND LADDER</h1></header>
+        <main>
+            <div id="ribbon"></div>
+            <div id="left">
+
+                <nav>
+                    <ul>
+                        <li><a href="index.html"> HOME </a></li>
+                        <li><a href="gallery.html">GALLERY </a></li>
+                        <li><a href="volunteer.aspx"> VOLUNTEERS </a></li>
+                        <li><a href="administrator.html"> ADMINISTRATOR </a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="middle">
+                <div id="images">
+
+                </div>
+            </div>
+
+        </main>
+        <footer>
+            <p id="adress">1000 Avenue Of the Americas, New York, NY 10010  |  Copyright &#169; 2018 Conqueror Hook and Ladder</p><br />
+        </footer>
+    </div>
+</body>
+</html>
